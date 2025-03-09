@@ -12,13 +12,13 @@ load_dotenv()
 app = FastAPI()
 
 # Configurar la API Key de DeepSeek
-OPENROUTER_API_KEY = os.getenv("DEEPSEEK_API_KEY")
-if not OPENROUTER_API_KEY:
+API_KEY = os.getenv("OPENROUTER_API_KEY")
+if not API_KEY:
     raise ValueError("--> No se encontro la API Key de OpenRouter en .env")
 
 # Configurar el cliente de OpenAI para usar la API de DeepSeek
 client = OpenAI(
-    api_key=OPENROUTER_API_KEY,
+    api_key=API_KEY,
     base_url="https://openrouter.ai/api/v1"
 )
 
@@ -32,7 +32,7 @@ class Pregunta(BaseModel):
 async def preguntar(pregunta: Pregunta):
     try:
         # Depuración: Verifica que la API key se cargó correctamente
-        print("--> API Key cargada:", OPENROUTER_API_KEY)
+        print("--> API Key cargada:", API_KEY)
         
         response = client.chat.completions.create(
             model="deepseek/deepseek-r1:free", 
