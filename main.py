@@ -22,6 +22,10 @@ client = OpenAI(
     base_url="https://openrouter.ai/api/v1"
 )
 
+# Ruta para verificar conexion con el servidor
+@app.get("/health")
+async def health_check():
+    return {"status": "Servidor en funcionamiento", "message": "Conexion exitosa."}
 
 # Definir un modelo Pydantic para la solicitud
 class Pregunta(BaseModel):
